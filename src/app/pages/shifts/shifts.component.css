@@ -1,0 +1,15 @@
+mat-card {
+  margin: 20px;
+}
+
+table {
+  width: 100%;
+}
+
+button {
+  margin: 5px;
+}
+
+.warning-text {
+    margin-bottom: 16px; 
+  }

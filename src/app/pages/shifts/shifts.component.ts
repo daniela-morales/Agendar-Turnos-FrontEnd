@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ShiftsService } from '../../services/shifts.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
@@ -8,7 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-shifts',
@@ -29,9 +29,8 @@ export class ShiftsComponent implements OnInit {
   userShifts: ShiftDto[] = [];
   userId: number = 0;
 
-  constructor(private shiftService: ShiftsService, private cdr: ChangeDetectorRef, private route: ActivatedRoute) {
+  constructor(private shiftService: ShiftsService, private route: ActivatedRoute, private router: Router) {
     this.userId = this.route.snapshot.queryParams['userId'];
-    console.log(this.userId);
   }
 
   ngOnInit(): void {
@@ -63,10 +62,9 @@ export class ShiftsComponent implements OnInit {
       response => {
         this.loadAvailableShifts(); 
         this.loadUserShifts();
-        this.cdr.detectChanges();
       },
       (err: HttpErrorResponse) => {
-        alert(err.error);
+        window.location.reload();
       }
     );
   }
